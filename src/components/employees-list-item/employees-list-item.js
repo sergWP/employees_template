@@ -1,21 +1,25 @@
 import { FaCookieBite, FaStar } from 'react-icons/fa';
 import { IoMdTrash } from 'react-icons/io';
 
-const EmployeesListItem = () => {
+const EmployeesListItem = ({name, salary, increase}) => {
+    const classes = (incr) => {
+        return incr ? 'text-amber-600' : null;
+    }
+
     return(
-        <li className="w-full flex justify-between py-2">
-            <span className="grow leading-loose">Name</span>
+        <li className={`w-full flex justify-between py-2 ${classes(increase)}`}>
+            <span className="grow leading-loose">{name}</span>
             <div className="flex flex-row">
-                <input type={'text'}
+                <input type="text"
                     className=""
-                    defaultValue={'$1000'}/>
+                    defaultValue={`$${salary}`}/>
                     <div className="flex pl-4">
                         <button type="button"
                             className="text-amber-500">
                             <i className=""><FaStar/></i>
                         </button>
                         <button type="button"
-                            className="text-slate-600 pl-4">
+                            className={`text-slate-600 pl-4 ${classes(increase)}`}>
                             <i className=""><FaCookieBite /></i>
                         </button>
                         <button type="button"

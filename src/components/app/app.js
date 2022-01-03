@@ -4,6 +4,7 @@ import AppFilter from '../app-filter/app-filter';
 import EmployeesList from '../employees-list/employees-list';
 import EmployeesAddForm from '../employees-add-form/employees-add-form';
 
+/*
 function WhoAmI({name, surname, url, urlText}) {
     return(
         <div>
@@ -30,8 +31,16 @@ function User({name, surname, url, urlText}) {
         </div>
     )
 }
+*/
 
 function App() {
+
+    const data = [
+        {name: 'Andrey V.', salary: 2000, increase: true},
+        {name: 'Dmitry K.', salary: 1200, increase: false},
+        {name: 'Vladimir Z.', salary: 1300, increase: false}
+    ];
+
     return(
         <div className='max-w-5xl mx-auto app'>
             <AppInfo/>
@@ -39,11 +48,8 @@ function App() {
                 <SearchPanel/>
                 <AppFilter/>
             </div>
-            <EmployeesList/>
+            <EmployeesList data={data}/>
             <EmployeesAddForm/>
-            <WhoAmI name='John' surname='Smith' url='react.io' urlText='REACT'/>
-            <AmI name={{firstName: 'Alex'}} surname='Claus' url='react.io' urlText='REACT'/>
-            <User name={() => { return 'Peter' }} surname='Forter' url='react.io' urlText='REACT'/>
         </div>
     )
 }
