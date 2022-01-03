@@ -36,9 +36,9 @@ function User({name, surname, url, urlText}) {
 function App() {
 
     const data = [
-        {name: 'Andrey V.', salary: 2000, increase: true},
-        {name: 'Dmitry K.', salary: 1200, increase: false},
-        {name: 'Vladimir Z.', salary: 1300, increase: false}
+        {id: 1, name: 'Andrey V.', salary: 2000, increase: true},
+        {id: 2, name: 'Dmitry K.', salary: 1200, increase: false},
+        {id: 3, name: 'Vladimir Z.', salary: 1300, increase: false}
     ];
 
     return(
