@@ -2,6 +2,7 @@ import EmployeesListItem from '../employees-list-item/employees-list-item';
 
 const EmployeesList = ({data}) => {
 
+    // .map - перебирает массив и возвращает новый, измененный массив
     const items = data.map(item => {
         const {id, ...itemProps} = item;
         return(
