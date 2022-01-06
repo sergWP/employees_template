@@ -4,25 +4,42 @@ class EmployeesAddForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            name: '',
+            salary: ''
         }
     }
 
+    onValueChange = (e) => {
+        this.setState({
+            [e.target.name] : e.target.value
+        })
+    }
+
     render() {
+        const {name, salary} = this.state;
         return(
             <div className="bg-slate-200 p-4">
                 <h3 className="pb-4 text-lg">Добавьте нового сотрудника</h3>
                 <form className="flex">
 
                     <span className="grow">
-                        <input type="text"
+                        <input 
+                            type="text"
                             className="py-2 px-4 rounded-md w-full"
-                            placeholder="Имя"/>
+                            placeholder="Имя"
+                            name='name'
+                            value={name}
+                            onChange={this.onValueChange}/>
                     </span>
 
                     <span className="grow px-4">
-                        <input type="number"
+                        <input 
+                            type="number"
                             className="py-2 px-4 rounded-md w-full"
-                            placeholder="З/П в $"/>
+                            placeholder="З/П в $"
+                            name='salary'
+                            value={salary}
+                            onChange={this.onValueChange}/>
                     </span>
 
                     <button type="submit"
