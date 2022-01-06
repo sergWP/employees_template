@@ -5,36 +5,66 @@ import { IoMdTrash } from 'react-icons/io';
 class EmployeesListItem extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            increase: false,
+            star: false
+        }
+    }
+
+    onIncrease = () => {
+        this.setState(({increase}) => ({
+            increase: !increase
+        }))
+    }
+
+    onStar = () => {
+        this.setState(({star}) => ({
+            star: !star
+        }))
     }
     
     render() {
-        const {name, salary, increase} = this.props;
-        const classes = (incr) => {
+        const {name, salary} = this.props;
+        const {increase, star} = this.state;
+
+        const classesIncr = (incr) => {
             return incr ? 'text-amber-600' : '';
+        }
+        const classesStar = (star) => {
+            return star ? '' : 'hidden';
         }
     
         return(
-            <li className={`w-full flex justify-between py-2 ${classes(increase)}`}>
-                <span className="grow leading-loose">{name}</span>
+            <li className={`w-full flex justify-between py-2 ${classesIncr(increase)}`}>
+                
+                <span 
+                    className="grow leading-loose"
+                    onClick={this.onStar}>{name}</span>
+
                 <div className="flex flex-row">
-                    <input type="text"
+
+                    <input 
+                        type="text"
                         className=""
                         defaultValue={`$${salary}`}/>
-                        <div className="flex pl-4">
-                            <button type="button"
-                                className="text-amber-500">
-                                <i className=""><FaStar/></i>
-                            </button>
-                            <button type="button"
-                                className={`text-slate-600 pl-4 ${classes(increase)}`}>
-                                <i className=""><FaCookieBite /></i>
-                            </button>
-                            <button type="button"
-                                className="text-rose-800 pl-4">
-                                <i className=""><IoMdTrash/></i>
-                            </button>
-                        </div>
+
+                    <div className="flex items-center pl-4">
+                        <span className={`text-amber-500 ${classesStar(star)}`}>
+                            <i className=""><FaStar/></i>
+                        </span>
+                        <button 
+                            type="button"
+                            onClick={this.onIncrease}
+                            className={`text-slate-600 pl-4 ${classesIncr(increase)}`}>
+                            <i className=""><FaCookieBite /></i>
+                        </button>
+                        <button type="button"
+                            className="text-rose-800 pl-4">
+                            <i className=""><IoMdTrash/></i>
+                        </button>
+                    </div>
+
+               
                 </div>
             </li>
         )
