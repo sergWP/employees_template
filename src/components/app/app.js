@@ -47,6 +47,27 @@ class App extends Component {
         }
     }
 
+    deleteItem = (id) => {
+        this.setState(({data}) => {
+            // удаляем объект из стейта
+
+            // variant 1
+            //const index = data.findIndex(elem => elem.id === id);
+            //const before = data.slice(0, index);
+            //const after = data.slice(index + 1);
+            //const newData = [...before, ...after];
+
+            //return {
+            //    data: newData
+            //}
+
+            //variant 2
+            return {
+                data: data.filter(item => item.id !== id)
+            }
+        });
+    }
+
     render() {
         return(
             <div className='max-w-5xl mx-auto app'>
@@ -57,7 +78,7 @@ class App extends Component {
                 </div>
                 <EmployeesList 
                     data={this.state.data}
-                    onDelete={id => console.log(id)}/>
+                    onDelete={this.deleteItem}/>
                 <EmployeesAddForm/>
             </div>
         )
