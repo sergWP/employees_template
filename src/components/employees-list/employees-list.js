@@ -1,6 +1,6 @@
 import EmployeesListItem from '../employees-list-item/employees-list-item';
 
-const EmployeesList = ({data}) => {
+const EmployeesList = ({data, onDelete}) => {
 
     // .map - перебирает массив и возвращает новый, измененный массив
     const items = data.map(item => {
@@ -9,7 +9,10 @@ const EmployeesList = ({data}) => {
             /*
             <EmployeesListItem user={item.name} salary={item.salary} />
             */
-            <EmployeesListItem key={id} {...itemProps} />
+            <EmployeesListItem 
+            key={id} 
+            onDelete={() => onDelete(id)}
+            {...itemProps} />
         )
     });
 

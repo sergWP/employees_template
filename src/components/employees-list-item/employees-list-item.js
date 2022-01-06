@@ -24,7 +24,7 @@ class EmployeesListItem extends Component {
     }
     
     render() {
-        const {name, salary} = this.props;
+        const {name, salary, onDelete} = this.props;
         const {increase, star} = this.state;
 
         const classesIncr = (incr) => {
@@ -58,7 +58,9 @@ class EmployeesListItem extends Component {
                             className={`text-slate-600 pl-4 ${classesIncr(increase)}`}>
                             <i className=""><FaCookieBite /></i>
                         </button>
-                        <button type="button"
+                        <button 
+                            type="button"
+                            onClick={onDelete}
                             className="text-rose-800 pl-4">
                             <i className=""><IoMdTrash/></i>
                         </button>
