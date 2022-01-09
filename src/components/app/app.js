@@ -45,6 +45,22 @@ class App extends Component {
                 {id: 3, name: 'Vladimir Z.', salary: 1300, increase: false}
             ]
         }
+        this.maxId = 4;
+    }
+
+    addItem = (name, salary) => {
+        const newItem = {
+            name, 
+            salary,
+            increase: false,
+            id: this.maxId++
+        }
+        this.setState(({data}) => {
+            const newArr = [...data, newItem];
+            return {
+                data: newArr
+            }
+        });
     }
 
     deleteItem = (id) => {
@@ -65,13 +81,14 @@ class App extends Component {
             return {
                 data: data.filter(item => item.id !== id)
             }
-        });
+        })
     }
 
     render() {
         return(
             <div className='max-w-5xl mx-auto app'>
-                <AppInfo/>
+                <AppInfo
+                    data={this.state.data}/>
                 <div className='bg-slate-200 p-4 rounded-md'>
                     <SearchPanel/>
                     <AppFilter/>
@@ -79,7 +96,8 @@ class App extends Component {
                 <EmployeesList 
                     data={this.state.data}
                     onDelete={this.deleteItem}/>
-                <EmployeesAddForm/>
+                <EmployeesAddForm 
+                    onAdd={this.addItem}/>
             </div>
         )
     }

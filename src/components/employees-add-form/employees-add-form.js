@@ -10,17 +10,30 @@ class EmployeesAddForm extends Component {
     }
 
     onValueChange = (e) => {
+        
         this.setState({
             [e.target.name] : e.target.value
         })
     }
 
+    onSubmit = (e) => {
+        e.preventDefault();
+        this.props.onAdd(this.state.name, this.state.salary);
+        this.setState({
+            name: '',
+            salary: ''
+        })
+    }
+
     render() {
         const {name, salary} = this.state;
+
         return(
             <div className="bg-slate-200 p-4">
                 <h3 className="pb-4 text-lg">Добавьте нового сотрудника</h3>
-                <form className="flex">
+                <form 
+                    className="flex"
+                     onSubmit={this.onSubmit}>
 
                     <span className="grow">
                         <input 
