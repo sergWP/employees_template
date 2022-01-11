@@ -3,29 +3,8 @@ import { FaCookieBite, FaStar } from 'react-icons/fa';
 import { IoMdTrash } from 'react-icons/io';
 
 class EmployeesListItem extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            increase: false,
-            star: false
-        }
-    }
-
-    onIncrease = () => {
-        this.setState(({increase}) => ({
-            increase: !increase
-        }))
-    }
-
-    onStar = () => {
-        this.setState(({star}) => ({
-            star: !star
-        }))
-    }
-    
     render() {
-        const {name, salary, onDelete} = this.props;
-        const {increase, star} = this.state;
+        const {name, salary, onDelete, onToggleIncrease, onToggleRise, increase, star} = this.props;
 
         const classesIncr = (incr) => {
             return incr ? 'text-amber-600' : '';
@@ -39,7 +18,7 @@ class EmployeesListItem extends Component {
                 
                 <span 
                     className="grow leading-loose"
-                    onClick={this.onStar}>{name}</span>
+                    onClick={onToggleRise}>{name}</span>
 
                 <div className="flex flex-row">
 
@@ -54,7 +33,7 @@ class EmployeesListItem extends Component {
                         </span>
                         <button 
                             type="button"
-                            onClick={this.onIncrease}
+                            onClick={onToggleIncrease}
                             className={`text-slate-600 pl-4 ${classesIncr(increase)}`}>
                             <i className=""><FaCookieBite /></i>
                         </button>
