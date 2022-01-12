@@ -14,7 +14,8 @@ class App extends Component {
                 {id: 1, name: 'Andrey V.', salary: 2000, increase: true, star: true},
                 {id: 2, name: 'Dmitry K.', salary: 1200, increase: false, star: false},
                 {id: 3, name: 'Vladimir Z.', salary: 1300, increase: false, star: false}
-            ]
+            ],
+            term: ''
         }
         this.maxId = 4;
     }
@@ -91,20 +92,37 @@ class App extends Component {
         }))
     }
 
+    searchEmp = (items, term) => {
+        if (term.length === 0) {
+            return items;
+        }
+
+        return items.filter(item => {
+            return item.name.indexOf(term) > -1
+        })
+    }
+
+    onUpdateSearch = (term) => {
+        this.setState({term})
+    }
+
     render() {
+        const {data, term} = this.state;
         const employees = this.state.data.length;
         const increased = this.state.data.filter(item => item.increase).length;
+        const visibleData = this.searchEmp(data, term);
+
         return(
             <div className='max-w-5xl mx-auto app'>
                 <AppInfo
                     employees={employees}
                     increased={increased}/>
                 <div className='bg-slate-200 p-4 rounded-md'>
-                    <SearchPanel/>
+                    <SearchPanel onUpdateSearch={this.onUpdateSearch}/>
                     <AppFilter/>
                 </div>
                 <EmployeesList 
-                    data={this.state.data}
+                    data={visibleData}
                     onDelete={this.deleteItem}
                     onToggleIncrease={this.onToggleIncrease}
                     onToggleRise={this.onToggleRise}/>
