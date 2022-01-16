@@ -18,7 +18,7 @@ class App extends Component {
                 {id: 5, name: 'Vladimir 3.', salary: 1300, increase: false, star: false},
             ],
             term: '',
-            filter: ''
+            filter: 'all'
         }
         this.maxId = 6;
     }
@@ -120,9 +120,7 @@ class App extends Component {
                     return item.salary > 1000;
                 })
             default:
-                return items.filter(item => {
-                    return item;
-                })
+                return items;
         }
     }
 
@@ -134,8 +132,7 @@ class App extends Component {
         const {data, term, filter} = this.state;
         const employees = this.state.data.length;
         const increased = this.state.data.filter(item => item.increase).length;
-        const visibleData = this.searchEmp(data, term);
-        const filterData = this.filterItm(data, filter);
+        const visibleData = this.filterItm(this.searchEmp(data, term), filter);
 
         return(
             <div className='max-w-5xl mx-auto app'>
@@ -146,11 +143,12 @@ class App extends Component {
                     <SearchPanel 
                         onUpdateSearch={this.onUpdateSearch}/>
                     <AppFilter 
+                        filter={filter}
                         onFilter={this.onFilter}
                         />
                 </div>
                 <EmployeesList 
-                    data={visibleData, filterData}
+                    data={visibleData}
                     onDelete={this.deleteItem}
                     onToggleIncrease={this.onToggleIncrease}
                     onToggleRise={this.onToggleRise}/>

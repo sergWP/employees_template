@@ -1,58 +1,30 @@
-import { Component } from 'react';
+const AppFilter = (props) => {
+    const buttonsData = [
+        {name: 'all', label: 'Все сотрудники'},
+        {name: 'star', label: 'На повышение'},
+        {name: 'top', label: 'З/П больше $1000'}
+    ];
 
-class AppFilter extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            filter: 'all'
-        }
-    }
-
-    onFilter = (e) => {
-        const filter = e.currentTarget.getAttribute('filter');
-        this.setState({filter});
-        this.props.onFilter(filter);
-    }
-
-    render() {
-        const {filter} = this.state;
-
-        const classesAll = (filter) => {
-            return filter === 'all' ? 'bg-slate-400' : 'text-slate-600';
-        }
-        const classesStar = (filter) => {
-            return filter === 'star' ? 'bg-slate-400' : 'text-slate-600';
-        }
-        const classesTop = (filter) => {
-            return filter === 'top' ? 'bg-slate-400' : 'text-slate-600';
-        }
-
-        return(
-            <div className="text-white flex mt-4">
-                <button 
-                    type="button" 
-                    onClick={this.onFilter}
-                    filter='all'
-                    className={`outline outline-slate-400 outline-1 px-3 py-2 hover:bg-slate-500 hover:text-white ${classesAll(filter)}`}>
-                        Все сотрудники
-                </button>
-                <button 
-                    type="button" 
-                    onClick={this.onFilter}
-                    filter='star'
-                    className={`outline outline-slate-400 outline-1 px-3 py-2 hover:bg-slate-500 hover:text-white ${classesStar(filter)}`}>
-                        На повышение
-                </button>
-                <button 
-                    type="button" 
-                    onClick={this.onFilter}
-                    filter='top'
-                    className={`outline outline-slate-400 outline-1 px-3 py-2 hover:bg-slate-500 hover:text-white ${classesTop(filter)}`}>
-                        З/П больше $1000
-                </button>
-            </div>
+    const buttons = buttonsData.map(({name, label}) => {
+        const active = props.filter === name;
+        const clazz = active ? 'bg-slate-400' : 'text-slate-600';
+        return (
+            <button 
+                type="button" 
+                onClick={() => props.onFilter(name)}
+                filter={name}
+                key={name}
+                className={`outline outline-slate-400 outline-1 px-3 py-2 hover:bg-slate-500 hover:text-white ${clazz}`}>
+                    {label}
+            </button>
         )
-    }
+    })
+
+    return(
+        <div className="text-white flex mt-4">
+            {buttons}
+        </div>
+    )
 }
 
 export default AppFilter;
