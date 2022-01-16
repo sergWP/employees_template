@@ -1,6 +1,6 @@
 import EmployeesListItem from '../employees-list-item/employees-list-item';
 
-const EmployeesList = ({data, onDelete, onToggleIncrease, onToggleRise}) => {
+const EmployeesList = ({data, onDelete, onToggleIncrease, onToggleRise, onSalaryChange}) => {
 
     // .map - перебирает массив и возвращает новый, измененный массив
     const items = data.map(item => {
@@ -10,11 +10,12 @@ const EmployeesList = ({data, onDelete, onToggleIncrease, onToggleRise}) => {
             <EmployeesListItem user={item.name} salary={item.salary} />
             */
             <EmployeesListItem 
-            key={id} 
-            onDelete={() => onDelete(id)}
-            onToggleIncrease={() => {onToggleIncrease(id)}}
-            onToggleRise={() => {onToggleRise(id)}}
-            {...itemProps} />
+                key={id} 
+                onDelete={() => onDelete(id)}
+                onToggleIncrease={() => {onToggleIncrease(id)}}
+                onToggleRise={() => {onToggleRise(id)}}
+                onSalaryChange={onSalaryChange}
+                {...itemProps} />
         )
     });
 

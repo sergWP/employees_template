@@ -3,8 +3,23 @@ import { FaCookieBite, FaStar } from 'react-icons/fa';
 import { IoMdTrash } from 'react-icons/io';
 
 class EmployeesListItem extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            salary: this.props.salary,
+        }
+    }
+
+    onSalaryChange = (e) => {
+        const {onSalaryChange, name} = this.props;
+
+        const salary = (e.target.value).replace(/\D/g, "");
+        this.setState({salary});
+        onSalaryChange(name, salary);
+    }
+
     render() {
-        const {name, salary, onDelete, onToggleIncrease, onToggleRise, increase, star} = this.props;
+        const {name, onDelete, onToggleIncrease, onToggleRise, increase, star} = this.props;
 
         const classesIncr = (incr) => {
             return incr ? 'text-amber-600' : '';
@@ -25,8 +40,8 @@ class EmployeesListItem extends Component {
                     <input 
                         type="text"
                         className=""
-                        defaultValue={`$${salary}`}
-                        disabled/>
+                        defaultValue={`$${this.state.salary}`}
+                        onChange={this.onSalaryChange}/>
 
                     <div className="flex items-center pl-4">
                         <span className={`text-amber-500 ${classesStar(star)}`}>
