@@ -25,7 +25,8 @@ class EmployeesListItem extends Component {
                     <input 
                         type="text"
                         className=""
-                        defaultValue={`$${salary}`}/>
+                        defaultValue={`$${salary}`}
+                        disabled/>
 
                     <div className="flex items-center pl-4">
                         <span className={`text-amber-500 ${classesStar(star)}`}>

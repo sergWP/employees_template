@@ -12,12 +12,15 @@ class App extends Component {
         this.state = {
             data: [
                 {id: 1, name: 'Andrey V.', salary: 2000, increase: true, star: true},
-                {id: 2, name: 'Dmitry K.', salary: 1200, increase: false, star: false},
-                {id: 3, name: 'Vladimir Z.', salary: 1300, increase: false, star: false}
+                {id: 2, name: 'Dmitry K.', salary: 650, increase: false, star: false},
+                {id: 3, name: 'Vladimir Z.', salary: 1300, increase: false, star: false},
+                {id: 4, name: 'Vladimir 2.', salary: 700, increase: false, star: false},
+                {id: 5, name: 'Vladimir 3.', salary: 1300, increase: false, star: false},
             ],
-            term: ''
+            term: '',
+            filter: ''
         }
-        this.maxId = 4;
+        this.maxId = 6;
     }
 
     addItem = (name, salary) => {
@@ -106,11 +109,33 @@ class App extends Component {
         this.setState({term})
     }
 
+    filterItm = (items, filter) => {
+        switch (filter) {
+            case "star":
+                return items.filter(item => {
+                    return item.star === true;
+                })
+            case "top":
+                return items.filter(item => {
+                    return item.salary > 1000;
+                })
+            default:
+                return items.filter(item => {
+                    return item;
+                })
+        }
+    }
+
+    onFilter = (filter) => {
+        this.setState({filter})
+    }
+
     render() {
-        const {data, term} = this.state;
+        const {data, term, filter} = this.state;
         const employees = this.state.data.length;
         const increased = this.state.data.filter(item => item.increase).length;
         const visibleData = this.searchEmp(data, term);
+        const filterData = this.filterItm(data, filter);
 
         return(
             <div className='max-w-5xl mx-auto app'>
@@ -118,11 +143,14 @@ class App extends Component {
                     employees={employees}
                     increased={increased}/>
                 <div className='bg-slate-200 p-4 rounded-md'>
-                    <SearchPanel onUpdateSearch={this.onUpdateSearch}/>
-                    <AppFilter/>
+                    <SearchPanel 
+                        onUpdateSearch={this.onUpdateSearch}/>
+                    <AppFilter 
+                        onFilter={this.onFilter}
+                        />
                 </div>
                 <EmployeesList 
-                    data={visibleData}
+                    data={visibleData, filterData}
                     onDelete={this.deleteItem}
                     onToggleIncrease={this.onToggleIncrease}
                     onToggleRise={this.onToggleRise}/>
